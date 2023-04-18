@@ -1,6 +1,7 @@
 package id.learn.database;
 
 import id.learn.database.jpa.model.Book;
+import id.learn.database.jpa.repository.AuthorRepository;
 import id.learn.database.jpa.repository.BookRepository;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -26,12 +27,15 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DataJpaTest
 @ActiveProfiles("default")
-//@ComponentScan(basePackages = {"id.learn.database.jpa.bootstrap"}) //add packages to spring context
+@ComponentScan(basePackages = {"id.learn.database.jpa.bootstrap"}) //add packages to spring context
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class SpringBootJpaTestSlice {
 
     @Autowired
     BookRepository bookRepository;
+
+    @Autowired
+    AuthorRepository authorRepository;
 
 //    @Rollback(value = false) -> default behaviour is after transaction in test, will be rollback the transaction
     @Commit
@@ -41,7 +45,7 @@ public class SpringBootJpaTestSlice {
         long countBefore = bookRepository.count(); // this will count zero coz not bring the bootstrap data init
         assertThat(countBefore).isEqualTo(2);
 
-        bookRepository.save(new Book("Test Add book", "333-222", "Test Publisher"));
+        bookRepository.save(new Book("Test Add book", "333-222", "Test Publisher",null));
 
         long countAfter = bookRepository.count();
 
@@ -54,5 +58,18 @@ public class SpringBootJpaTestSlice {
         long countBefore = bookRepository.count();
 
         assertThat(countBefore).isEqualTo(3);
+    }
+
+    @Order(3)
+    @Test
+    void testAddAuthorRepository(){
+        long countBefore = authorRepository.count(); // this will count zero coz not bring the bootstrap data init
+        assertThat(countBefore).isEqualTo(1);
+
+        bookRepository.save(new Book("Test Add book", "333-222", "Test Publisher",null));
+
+        long countAfter = bookRepository.count();
+
+        assertThat(countAfter).isGreaterThan(countBefore);
     }
 }

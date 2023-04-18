@@ -1,5 +1,6 @@
 package id.learn.database;
 
+import id.learn.database.jpa.repository.AuthorRepository;
 import id.learn.database.jpa.repository.BookRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +20,26 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @ActiveProfiles("dev")
 @DataJpaTest
-//@ComponentScan(basePackages = {"id.learn.database.jpa.bootstrap"})
+@ComponentScan(basePackages = {"id.learn.database.jpa.bootstrap"})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class PostgreSQLIntegrationTest {
 
     @Autowired
     BookRepository bookRepository;
 
+    @Autowired
+    AuthorRepository authorRepository;
+
     @Test
     void testPostgreSQL(){
         long countBefore = bookRepository.count();
-        assertThat(countBefore).isEqualTo(15);
+        assertThat(countBefore).isEqualTo(16);
+    }
+
+    @Test
+    void testAuthorRepository(){
+        long countBefore = authorRepository.count();
+        assertThat(countBefore).isEqualTo(1);
     }
 
 }
