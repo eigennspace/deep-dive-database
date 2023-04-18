@@ -3,6 +3,7 @@ package id.learn.database.jpa.bootstrap;
 import id.learn.database.jpa.model.Book;
 import id.learn.database.jpa.repository.BookRepository;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 /***
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
  * @Project : deep-dive-database
  * @Created_by : IdeaU
  */
+@Profile({"postgresql", "default"}) // use this to inform the component will be scanned in certain profile
 @Component
 public class DataInitializr implements CommandLineRunner {
 
@@ -23,6 +25,7 @@ public class DataInitializr implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         Book doraemon = new Book("Doraemon Vol. 01", "123-4321", "PT. Media Elex Komputindo");
+
         System.out.println("Id : " + doraemon.getId());
 
         Book savedDoraemon = bookRepository.save(doraemon);
