@@ -17,7 +17,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
  * @Created_by : IdeaU
  */
 
-@ActiveProfiles("postgresql")
+@ActiveProfiles("dev")
 @DataJpaTest
 @ComponentScan(basePackages = {"id.learn.database.jpa.bootstrap"})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)

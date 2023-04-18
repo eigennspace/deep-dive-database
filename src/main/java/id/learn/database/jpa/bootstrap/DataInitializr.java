@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  * @Project : deep-dive-database
  * @Created_by : IdeaU
  */
-@Profile({"postgresql", "default"}) // use this to inform the component will be scanned in certain profile
+@Profile({"dev", "default"}) // use this to inform the component will be scanned in certain profile
 @Component
 public class DataInitializr implements CommandLineRunner {
 
