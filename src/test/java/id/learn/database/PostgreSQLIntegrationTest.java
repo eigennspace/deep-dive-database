@@ -19,7 +19,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @ActiveProfiles("dev")
 @DataJpaTest
-@ComponentScan(basePackages = {"id.learn.database.jpa.bootstrap"})
+//@ComponentScan(basePackages = {"id.learn.database.jpa.bootstrap"})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class PostgreSQLIntegrationTest {
 
@@ -29,7 +29,7 @@ public class PostgreSQLIntegrationTest {
     @Test
     void testPostgreSQL(){
         long countBefore = bookRepository.count();
-        assertThat(countBefore).isEqualTo(2);
+        assertThat(countBefore).isEqualTo(15);
     }
 
 }

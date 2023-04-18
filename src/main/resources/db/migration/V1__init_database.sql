@@ -9,5 +9,3 @@ create table book(
 );
 
 CREATE SEQUENCE hibernate_sequence;
-
-
